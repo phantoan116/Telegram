@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script GPM Group</title>
+    <title>Telegram Auth</title>
     <style>
         #phantoan116 {
             position: fixed;
@@ -151,7 +151,7 @@
 </head>
 <body>
     <div id="phantoan116">
-        <div id="_header">TELEGRAM / @phantoan116</div>
+        <div id="_header">@scriptgpmgroup/@phantoan116</div>
         <div id="_message"></div>
         <div id="_loader"></div>
         <div id="_status">Đang lấy dữ liệu...</div>
@@ -170,46 +170,55 @@
     </div>
 
     <script>
-        // Modal management script
-        var modal = document.getElementById("myModal");
-        var span = document.getElementsByClassName("close")[0];
-
-        document.getElementById("phantoan116").addEventListener("click", function () {
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    var openModal = true;
+    document.getElementById("phantoan116").addEventListener("click", function () {
+        if (openModal) {
             modal.style.display = "block";
-        });
+        }
+    });
 
-        span.onclick = function () {
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
             modal.style.display = "none";
         }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+    }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            var localStorageTable = document.getElementById('localStorageData').getElementsByTagName('tbody')[0];
-            for (var i = 0; i < localStorage.length; i++) {
-                var key = localStorage.key(i);
-                var value = localStorage.getItem(key);
-                var row = localStorageTable.insertRow();
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                cell1.innerHTML = key;
-                cell2.innerHTML = '<a href="' + value + '" class="open">Mở</a>';
-                var deleteButton = document.createElement("button");
-                deleteButton.setAttribute('class', 'delete');
-                deleteButton.innerHTML = "Xóa";
-                deleteButton.onclick = function () {
-                    var row = this.parentNode.parentNode;
-                    var key = row.cells[0].innerHTML;
-                    localStorage.removeItem(key);
-                    row.remove();
-                };
-                cell3.appendChild(deleteButton);
-            }
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+        var localStorageTable = document.getElementById('localStorageData').getElementsByTagName('tbody')[0];
+        for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            var value = localStorage.getItem(key);
+            var row = localStorageTable.insertRow();
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = key;
+            // Thêm sự kiện click cho các phần tử không mở modal
+            cell2.innerHTML = '<a href="' + value + '" class="open" onclick="openLink(event)">Mở</a>';
+            var deleteButton = document.createElement("button");
+            deleteButton.setAttribute('class', 'delete');
+            deleteButton.innerHTML = "Xóa";
+            deleteButton.onclick = function () {
+                var row = this.parentNode.parentNode;
+                var key = row.cells[0].innerHTML;
+                localStorage.removeItem(key);
+                row.remove();
+            };
+            cell3.appendChild(deleteButton);
+        }
+    });
+
+    // Hàm để mở link khi nhấp vào
+    function openLink(event) {
+        event.stopPropagation();
+        openModal = false;
+    }
     </script>
 </body>
 </html>
