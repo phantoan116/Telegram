@@ -252,22 +252,10 @@
             width: 1%;
         }
 
-        .clock {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-            color: #fff;
-            font-family: monospace;
-        }
-
-        .date {
-            position: fixed;
-            top: 40px;
-            left: 10px;
-            font-size: 24px;
-            color: #fff;
-            font-family: monospace;
+        #_header {
+            padding: 15px 20px 14px;
+            background: #232335;
+            text-wrap: nowrap;
         }
     </style>
 </head>
@@ -275,7 +263,7 @@
 <body>
     <div id="particles-background" class="vertical-centered-box"></div>
     <div id="particles-foreground" class="vertical-centered-box"></div>
-
+    <div id="_header">scriptgpmgroup/@phantoan116</div>
     <div class="vertical-centered-box">
         <div class="content" id="openModal">
             <div class="loader-circle"></div>
@@ -296,9 +284,6 @@
             </table>
         </div>
     </div>
-
-    <div class="clock" id="clock"></div>
-    <div class="date" id="date"></div> <!-- Thêm phần tử hiển thị ngày -->
 
     <script>
         var modal = document.getElementById("myModal");
@@ -339,25 +324,11 @@
                 cell3.appendChild(deleteButton);
             }
 
-            function updateTime() {
-                const clockElement = document.getElementById('clock');
-                const dateElement = document.getElementById('date');
-                const now = new Date();
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const seconds = now.getSeconds().toString().padStart(2, '0');
-                const currentTime = `${hours}:${minutes}:${seconds}`;
-                clockElement.textContent = currentTime;
-
-                const day = now.getDate().toString().padStart(2, '0');
-                const month = (now.getMonth() + 1).toString().padStart(2, '0');
-                const year = now.getFullYear();
-                const currentDate = `${year}-${month}-${day}`;
-                dateElement.textContent = currentDate;
+            // Open the modal only if the clicked element is not a child of the modal
+        document.getElementById("phantoan116").addEventListener("click", function (event) {
+            if (!modal.contains(event.target)) {
+                modal.style.display = "block";
             }
-
-            updateTime();
-            setInterval(updateTime, 1000);
         });
     </script>
 </body>
