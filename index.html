@@ -104,13 +104,14 @@
             background: #36993a;
         }
 
-        .vertical-centered-box {
+           .vertical-centered-box {
             position: absolute;
             width: 100%;
             height: 100%;
+            display: flex; /* Sử dụng flexbox */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            justify-content: center; /* Căn giữa theo chiều ngang */
             text-align: center;
-            top: 0;
-            left: 0;
         }
 
         .vertical-centered-box:after {
