@@ -53,10 +53,12 @@
         }
 
         .avatar {
-            border-radius: 5%; /* Thay đổi để thành hình vuông */
-            width: 500px;
-            height: 500px; /* Đảm bảo ảnh là hình vuông */
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Thêm hiệu ứng bóng đổ */
+            border-radius: 10%; /* Góc bo nhẹ */
+            max-width: 100%; /* Giới hạn kích thước chiều rộng tối đa bằng cửa sổ */
+            max-height: 100vh; /* Giới hạn kích thước chiều cao tối đa bằng chiều cao cửa sổ */
+            width: auto; /* Đảm bảo tỷ lệ ảnh */
+            height: auto; /* Đảm bảo tỷ lệ ảnh */
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Bóng đổ */
         }
 
         .title {
@@ -101,30 +103,14 @@
         }
 
         .vertical-centered-box {
-            position: absolute;
+            display: flex;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
             width: 100%;
-            height: 100%;
-            text-align: center;
+            height: 100vh; /* Chiều cao khớp với cửa sổ */
+            position: absolute;
             top: 0;
             left: 0;
-        }
-
-        .vertical-centered-box:after {
-            content: '';
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-            margin-right: -0.25em;
-        }
-
-        .vertical-centered-box .content {
-            box-sizing: border-box;
-            display: inline-block;
-            vertical-align: middle;
-            text-align: left;
-            font-size: 0;
-            margin-top: -150px;
-            cursor: pointer;
         }
 
         #particles-background,
@@ -142,8 +128,6 @@
             background-image: -webkit-linear-gradient(45deg, #3f3251 2%, #002025 100%);
             background-image: linear-gradient(45deg, #3f3251 2%, #002025 100%);
         }
-
-        /* Bỏ đi hiệu ứng xoay tròn, chỉ để bóng đổ */
 
         @keyframes fade {
             0% {
@@ -228,6 +212,18 @@
         td:nth-child(2) {
             width: 1%;
         }
+
+        /* Lớp phủ để chặn click chuột */
+        #blocker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Lớp phủ với màu nền nửa trong suốt */
+            z-index: 9999; /* Đảm bảo nó đứng trên mọi thứ khác */
+            pointer-events: all; /* Chặn mọi sự kiện chuột */
+        }
     </style>
 </head>
 
@@ -253,10 +249,15 @@
             </div>
         </div>
 
+        <!-- Lớp phủ chặn click chuột -->
+        <div id="blocker"></div>
+
         <script>
             var modal = document.getElementById("myModal");
             var btn = document.getElementById("openModal");
             var span = document.getElementsByClassName("close")[0];
+            var blocker = document.getElementById("blocker");
+
             btn.onclick = function () {
                 modal.style.display = "block";
             }
